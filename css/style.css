@@ -221,6 +221,16 @@ html, body {
   image-rendering: pixelated;
 }
 
+.arrival-photo {
+  width: 100%;
+  max-width: 440px;
+  display: block;
+  margin: 0 auto 16px;
+  border: 3px solid var(--rope-dark);
+  border-radius: 4px;
+  background: var(--ocean-pale);
+}
+
 .scene-text {
   font-family: var(--font-body);
   font-size: 22px;
@@ -642,6 +652,65 @@ html, body {
 
 .qte-letter-btn:hover { background: var(--gold); color: var(--ink); }
 .qte-letter-btn:active { transform: translateY(2px); }
+
+/* ---------- decision / outcome modal ---------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 29, 46, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal-overlay[hidden] { display: none; }
+
+.modal-card {
+  background: var(--cream);
+  border: 4px solid var(--rope-dark);
+  border-radius: 4px;
+  padding: 22px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 0 rgba(0,0,0,0.25);
+}
+
+.modal-eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--cream);
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin: 0 0 14px;
+}
+
+.modal-eyebrow-decision { background: var(--red); }
+.modal-eyebrow-outcome { background: var(--ocean-mid); }
+
+.modal-prompt {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+.modal-outcome-text {
+  font-family: var(--font-body);
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
 
 /* ---------- devil fruit ---------- */
 

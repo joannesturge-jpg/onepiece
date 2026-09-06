@@ -39,7 +39,7 @@ const SCENE_ART = {
     <circle cx="136" cy="33" r="2" fill="var(--ink)"/>
     <path d="M124 40 Q132 45 140 40" stroke="var(--ink)" stroke-width="2" fill="none"/>
   </svg>`,
-  boatImage: `<img src="assets/boat.png" class="scene-art" alt="The Going Merry under sail">`
+  boatImage: `<img src="assets/boat.webp" class="scene-art" alt="The Going Merry under sail">`
 };
 
 const STARTING_FOOD = 60;
@@ -230,25 +230,61 @@ function renderTrailMap() {
 
 /* ---------- main render dispatcher ---------- */
 
+function showModal(html) {
+  const overlay = document.getElementById("modalOverlay");
+  const card = document.getElementById("modalCard");
+  card.innerHTML = html;
+  overlay.hidden = false;
+  document.getElementById("scenePanel").inert = true;
+}
+
+function hideModal() {
+  const overlay = document.getElementById("modalOverlay");
+  overlay.hidden = true;
+  document.getElementById("modalCard").innerHTML = "";
+  document.getElementById("scenePanel").inert = false;
+}
+
 function render() {
   updateStatTiles();
   renderSidebar();
   renderTrailMap();
   const panel = document.getElementById("scenePanel");
 
-  if (state.stage === "gameover") return renderGameOver(panel);
-  if (state.stage === "end") return renderEnding(panel);
+  if (state.stage === "gameover") {
+    hideModal();
+    return renderGameOver(panel);
+  }
+  if (state.stage === "end") {
+    hideModal();
+    return renderEnding(panel);
+  }
 
   const island = currentIsland();
   const art = SCENE_ART[island.art] || "";
 
-  if (state.stage === "arrival") return renderArrival(panel, island, art);
-  if (state.stage === "intro") return renderIntro(panel, island, art);
-  if (state.stage === "decision") return renderDecision(panel, island, art);
-  if (state.stage === "outcome") return renderOutcome(panel, island, art);
-  if (state.stage === "battle") return renderBattle(panel, island);
-  if (state.stage === "fruit") return renderFruit(panel, island, art);
-  if (state.stage === "outro") return renderOutro(panel, island, art);
+  if (state.stage === "arrival") {
+    hideModal();
+    return renderArrival(panel, island, art);
+  }
+  if (state.stage === "intro") {
+    hideModal();
+    return renderIntro(panel, island);
+  }
+  if (state.stage === "decision") return renderDecisionModal(island);
+  if (state.stage === "outcome") return renderOutcomeModal(island);
+  if (state.stage === "battle") {
+    hideModal();
+    return renderBattle(panel, island);
+  }
+  if (state.stage === "fruit") {
+    hideModal();
+    return renderFruit(panel, island, art);
+  }
+  if (state.stage === "outro") {
+    hideModal();
+    return renderOutro(panel, island, art);
+  }
 }
 
 /* ---------- narrative stages ---------- */
@@ -256,11 +292,14 @@ function render() {
 function renderArrival(panel, island, art) {
   const note = state.starvationNote;
   state.starvationNote = null;
+  const media = island.photo
+    ? `<img src="${island.photo}" class="arrival-photo" alt="${island.name}">`
+    : art;
   panel.innerHTML = `
     <p class="arrival-eyebrow">NEW LOCATION</p>
     <p class="scene-region">${island.region}</p>
     <h2 class="scene-title">${island.name}</h2>
-    ${art}
+    ${media}
     <p class="arrival-tagline">${island.tagline}</p>
     ${note ? `<p class="scene-warning">${note}</p>` : ""}
     <button class="continue-btn" id="continueBtn">MAKE LANDFALL</button>
@@ -271,11 +310,10 @@ function renderArrival(panel, island, art) {
   });
 }
 
-function renderIntro(panel, island, art) {
+function renderIntro(panel, island) {
   panel.innerHTML = `
     <p class="scene-region">${island.region}</p>
     <h2 class="scene-title">${island.name}</h2>
-    ${art}
     ${island.intro.map((p) => `<p class="scene-text">${p}</p>`).join("")}
     <button class="continue-btn" id="continueBtn">SET COURSE</button>
   `;
@@ -287,18 +325,16 @@ function renderIntro(panel, island, art) {
   });
 }
 
-function renderDecision(panel, island, art) {
+function renderDecisionModal(island) {
   const decision = island.decisions[state.decisionIdx];
-  panel.innerHTML = `
-    <p class="scene-region">${island.region}</p>
-    <h2 class="scene-title">${island.name}</h2>
-    ${art}
-    <p class="prompt-text">${decision.prompt}</p>
+  showModal(`
+    <p class="modal-eyebrow modal-eyebrow-decision">DECISION</p>
+    <p class="modal-prompt">${decision.prompt}</p>
     <ul class="choice-list">
       ${decision.options.map((opt, i) => `<li><button class="choice-btn" data-idx="${i}">${opt.label}</button></li>`).join("")}
     </ul>
-  `;
-  panel.querySelectorAll(".choice-btn").forEach((btn) => {
+  `);
+  document.querySelectorAll("#modalCard .choice-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const opt = decision.options[parseInt(btn.dataset.idx, 10)];
       applyEffects(opt.effects);
@@ -321,16 +357,14 @@ function renderDecision(panel, island, art) {
   });
 }
 
-function renderOutcome(panel, island, art) {
-  panel.innerHTML = `
-    <p class="scene-region">${island.region}</p>
-    <h2 class="scene-title">${island.name}</h2>
-    ${art}
-    <p class="scene-outcome">${state.lastOutcome}</p>
+function renderOutcomeModal(island) {
+  showModal(`
+    <p class="modal-eyebrow modal-eyebrow-outcome">WHAT HAPPENED</p>
+    <p class="modal-outcome-text">${state.lastOutcome}</p>
     ${state.lastOutcomeNote ? `<p class="scene-warning">${state.lastOutcomeNote}</p>` : ""}
-    <button class="continue-btn" id="continueBtn">CONTINUE</button>
-  `;
-  document.getElementById("continueBtn").addEventListener("click", () => {
+    <button class="continue-btn" id="modalContinueBtn">CONTINUE</button>
+  `);
+  document.getElementById("modalContinueBtn").addEventListener("click", () => {
     const nextDecisionIdx = state.decisionIdx + 1;
     if (nextDecisionIdx < island.decisions.length) {
       state.decisionIdx = nextDecisionIdx;

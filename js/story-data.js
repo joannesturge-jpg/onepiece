@@ -10,6 +10,7 @@ const ISLANDS = [
     region: "East Blue",
     name: "Foosha Village",
     art: "boatImage",
+    photo: "assets/loc-foosha.webp",
     tagline: "Your story begins where the wind first fills your sail.",
     intro: [
       "The morning sun climbs over Foosha Village. You are Monkey D. Luffy, and today is the day you finally push your little rowboat into the waves.",
@@ -42,6 +43,7 @@ const ISLANDS = [
     region: "East Blue",
     name: "Shells Town",
     art: "swordArt",
+    photo: "assets/loc-shellstown.webp",
     tagline: "Storm clouds part over a Marine stronghold ruled by a tyrant's fist.",
     intro: [
       "A rough storm throws your boat against the docks of Shells Town, a port under the thumb of a Marine base. Rumor says the base captain, Axe-Hand Morgan, rules the town like a tyrant.",
@@ -125,6 +127,7 @@ const ISLANDS = [
     region: "East Blue",
     name: "Syrup Village",
     art: "flagArt",
+    photo: "assets/loc-syrupvillage.webp",
     tagline: "A boy who cries wolf guards a village that doesn't believe him, and this time the wolf is real.",
     intro: [
       "A battered ship finally brings you to Syrup Village, where a long nosed boy named Usopp spends his days telling wild pirate stories that nobody believes.",
@@ -167,6 +170,7 @@ const ISLANDS = [
     region: "East Blue",
     name: "Baratie",
     art: "shipArt",
+    photo: "assets/loc-baratie.webp",
     tagline: "Even a floating restaurant isn't safe from a fleet with nothing left to lose.",
     intro: [
       "Hunger drags your ship toward the Baratie, a restaurant built on an old fighting ship that floats permanently at sea. The cooks here fight as hard as they serve food.",
@@ -203,6 +207,7 @@ const ISLANDS = [
     region: "East Blue",
     name: "Arlong Park",
     art: "swordArt",
+    photo: "assets/loc-arlongpark.webp",
     tagline: "A village pays its taxes in fear to a fishman who never planned to let it go.",
     intro: [
       "Your ship reaches Cocoyasi Village, Nami's home, ruled from behind by the fishman pirate Arlong. For years Nami has secretly worked for him, buying her village's freedom one stolen fortune at a time.",
@@ -246,6 +251,7 @@ const ISLANDS = [
     region: "East Blue",
     name: "Loguetown",
     art: "flagArt",
+    photo: "assets/loc-loguetown.webp",
     tagline: "The town of beginnings and endings has one more test before the Grand Line.",
     intro: [
       "Loguetown: the town where the Pirate King Gold Roger was born, and the same platform where he was executed. It is the last town before the Grand Line, and every pirate passes through it eventually.",
