@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luffy's Voyage: A Grand Line Trail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="ocean-backdrop"></div>
+
+<div class="game-frame">
+
+  <header class="game-header">
+    <div class="emblem" aria-hidden="true">
+      <svg viewBox="0 0 100 100" class="emblem-svg">
+        <circle cx="50" cy="52" r="34" class="emblem-skull-bg"/>
+        <circle cx="38" cy="50" r="7" class="emblem-eye"/>
+        <circle cx="62" cy="50" r="7" class="emblem-eye"/>
+        <path d="M50 58 L46 66 L54 66 Z" class="emblem-nose"/>
+        <path d="M32 70 Q50 82 68 70" class="emblem-mouth" fill="none" stroke-width="4"/>
+        <path d="M14 40 L30 30 L86 30 L70 40 Q50 22 14 40 Z" class="emblem-hat-top"/>
+        <rect x="14" y="38" width="72" height="8" rx="2" class="emblem-hat-brim"/>
+        <rect x="14" y="38" width="72" height="4" class="emblem-hat-band"/>
+      </svg>
+    </div>
+    <div class="title-block">
+      <h1 class="game-title">LUFFY'S VOYAGE</h1>
+      <p class="game-subtitle">A Grand Line Trail</p>
+    </div>
+  </header>
+
+  <div class="stat-bar" id="statBar">
+    <div class="stat">
+      <span class="stat-label">CREW BOND</span>
+      <div class="gauge"><div class="gauge-fill bond-fill" id="bondFill"></div></div>
+    </div>
+    <div class="stat">
+      <span class="stat-label">RESOLVE</span>
+      <div class="gauge"><div class="gauge-fill resolve-fill" id="resolveFill"></div></div>
+    </div>
+    <div class="stat">
+      <span class="stat-label">INFAMY</span>
+      <div class="gauge"><div class="gauge-fill infamy-fill" id="infamyFill"></div></div>
+    </div>
+  </div>
+
+  <main class="scene-panel" id="scenePanel">
+    <!-- populated by game.js -->
+  </main>
+
+  <nav class="trail-map" id="trailMap">
+    <!-- populated by game.js -->
+  </nav>
+
+  <footer class="game-footer">
+    <p>Set sail and chase the legend. Every choice charts a different course.</p>
+  </footer>
+
+</div>
+
+<script src="js/story-data.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
